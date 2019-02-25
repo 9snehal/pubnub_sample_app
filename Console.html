@@ -1,0 +1,46 @@
+<!doctype html>
+<html>
+<head>
+	<title>Test Console</title>
+	<script src="http://cdn.pubnub.com/pubnub.min.js"></script>
+	<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.1.1/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+ <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="ChatRoom.css">
+
+</head>
+<body>
+	<div class="container">
+	<button class="btn btn-primary updateButton" onclick="updateChannelState()">Update Channel State</button>
+	<div id="channelStateBar" class="channelState"></div>
+</div>
+	<script type="text/javascript">
+		(function() {
+			var publish_key = 'pub-c-8aca7ad5-e84a-4662-8abe-37767fbcd38f';
+			var subscribe_key = 'sub-c-a7c83958-34ca-11e9-ae9a-6e31a7d5aca7';
+
+			pubnub =PUBNUB.init({
+				publish_key : publish_key,
+				subscribe_key : subscribe_key,
+			});
+		})();
+	</script>
+
+<!-- who is here right now? it check by using here_now function -->
+<!-- who and how many users are subscribed to a particular channel -->
+	<script type="text/javascript">
+		function updateChannelState() {
+			pubnub.here_now({
+			    channel : 'chat.app',
+			    callback : function(m){ debugger;
+			    	$('#channelStateBar')[0].innerHTML =
+			    	'Ocuupancy : ' + m.occupancy + '<br/><br/>' + 'uuids : ' + m.uuids + '<br/><br/>' + 'Current Time : ' + (new Date()).toString();
+						console.log(m.occupancy);
+			    }
+			});
+		}
+	</script>
+</body>
+</html>

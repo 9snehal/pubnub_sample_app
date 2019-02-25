@@ -1,0 +1,84 @@
+.userList {
+	height:500px;
+	width:15%;
+	background-color:#E6E6E6;
+	position: absolute;
+	top: 15%;
+	left: 5%;
+}
+
+.chatHistory {
+	height:500px;
+	width:70%;
+	background-color:#E6E6E6;
+	position: absolute;
+	top: 15%;
+	left:25%;
+}
+
+	.dot {
+  height: 10px;
+  width: 10px;
+  background-color: green;
+  border-radius: 50%;
+  display: inline-block;
+}
+.dot1 {
+height: 10px;
+width: 10px;
+background-color: white;
+border-radius: 50%;
+display: inline-block;
+}
+
+#message {
+	width: 30%;
+	height: 35px;
+	position: absolute;
+	top: 80%;
+	left: 25%;
+}
+
+.sendButton {
+	position: absolute;
+	top: 80%;
+	left: 58%;
+}
+
+.leaveButton {
+	position: absolute;
+	top: 80%;
+	left: 8%;
+}
+.container{
+	align:center;
+	width: 30%;
+	margin-top: 20%;
+}
+.login{
+	background-color: #ccc;
+}
+#userName{
+	width:60%;
+	height: 30px;
+}
+#joinButton {
+margin-bottom: 4px;
+}
+
+
+.channelState {
+	height:200px;
+	width:300px;
+	background-color:#E6E6E6;
+	position: absolute;
+	top: 15%;
+	left:30%;
+
+}
+
+.updateButton {
+	position: absolute;
+	top: 25%;
+	left:50%;
+}
