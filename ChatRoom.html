@@ -47,7 +47,13 @@
 				channel : channel,
 				callback : function(message) {
 					console.log(message);
-					$('#chatHistory')[0].innerHTML = message.data.uuid + ":" + message.data.text +'<br/>' + $('#chatHistory')[0].innerHTML;
+					if(message.data.uuid==username){
+							$('#chatHistory')[0].innerHTML = message.data.uuid + ":" + message.data.translate.text +'<br/>' + $('#chatHistory')[0].innerHTML;
+					}else{
+						$('#chatHistory')[0].innerHTML = message.data.uuid + ":" + message.data.text +'<br/>' + $('#chatHistory')[0].innerHTML;
+					}
+
+
 				},
 				presence : function(state) {
 					if (state.action == 'join') {
