@@ -21,7 +21,7 @@
 	<div id="chatHistory" class="table-bordered chatHistory">
  </div>
   <div class="input">
-	<input type="text" class="form-control" id="message" placeholder="Enter your message here" />
+	<input id="message" type="text" class="form-control"  placeholder="Enter your message here" />
   <button id="sendButton" class="btn btn-primary sendButton">Send</button>
 </div>
 </div>
@@ -47,14 +47,12 @@
 				channel : channel,
 				callback : function(message) {
 					console.log(message);
-					if(message.data.uuid==username){
+					if(message.data.uuid == username){
 							$('#chatHistory')[0].innerHTML = message.data.uuid + ":" + message.data.translate.text +'<br/>' + $('#chatHistory')[0].innerHTML;
 					}else{
 						$('#chatHistory')[0].innerHTML = message.data.uuid + ":" + message.data.text +'<br/>' + $('#chatHistory')[0].innerHTML;
 					}
-
-
-				},
+       },
 				presence : function(state) {
 					if (state.action == 'join') {
 						// `<span class="dot"></span>`+ `&nbsp`
@@ -75,28 +73,45 @@
 			});
 
 		// function fetchOldMessages(){
-		// 	pubnub.history({channel : channel,
-		// 	callback : function(message) {
-		// 		$('#chatHistory')[0].innerHTML =message+ '<br/>' + $('#chatHistory')[0].innerHTML;
-    //     console.log(message);
-	 	// 	},
-		// 	presence : function(state) {
-		// 		if (state.action == 'join') {
-		// 			if ($('#userList').text().indexOf(state.uuid) == -1) {
-		// 				$('#userList')[0].innerHTML = state.uuid + '<br/>' + $('#userList')[0].innerHTML;
+		// 	pubnub.history({
+		// 		channel : channel,
+		// 		count:50,
+		// 		callback : function(message) {
+		// 			console.log(message);
+		// 			if(message.data.uuid == username){
+		// 					$('#chatHistory')[0].innerHTML = message.data.uuid + ":" + message.data.translate.text +'<br/>' + $('#chatHistory')[0].innerHTML;
+		// 			}else{
+		// 				$('#chatHistory')[0].innerHTML = message.data.uuid + ":" + message.data.text +'<br/>' + $('#chatHistory')[0].innerHTML;
 		// 			}
-		// 		} else if (state.action == 'leave' || state.action == 'timeout') {
-		// 			var index = $('#userList')[0].innerHTML.indexOf(state.uuid);
-		// 			if ( index !== -1) {
-		// 				$('#userList')[0].innerHTML =
-		// 					$('#userList')[0].innerHTML.substring(0,index) +
-		// 					$('#userList')[0].innerHTML.substring(index+state.uuid.length+4);
+		// 	 },
+		// 		presence : function(state) {
+		// 			if (state.action == 'join') {
+		// 				// `<span class="dot"></span>`+ `&nbsp`
+		// 				if ($('#userList').text().indexOf(state.uuid) == -1) {
+		// 					$('#userList')[0].innerHTML = state.uuid  +'<br/>' + $('#userList')[0].innerHTML;
+		// 					console.log(state.timestamp);
+		// 				}
+		// 			} else if (state.action == 'leave' || state.action == 'timeout') {
+		// 				var index = $('#userList')[0].innerHTML.indexOf(state.uuid);
+		// 				if ( index !== -1) {
+		// 					$('#userList')[0].innerHTML =
+		// 						$('#userList')[0].innerHTML.substring(0,index) +
+		// 						$('#userList')[0].innerHTML.substring(index+state.uuid.length+4);
+		// 				}
 		// 			}
-		// 		}
-		// }
-		//
+		// 	}
 		// 	});
 		// }
+// 		pubnub.deleteMessages(
+//     {
+//         channel: 'chat.app',
+//         start: '15510885773530659',
+//         end: '15511612751264639'
+//     },
+//     (result) => {
+//         console.log(result);
+//     }
+// );
 		//for sending message
 		/*
 		{
@@ -109,7 +124,12 @@
 			}
 		}
 		*/
-			pubnub.bind('click', pubnub.$('sendButton'), function(e) {
+		pubnub.bind('keyup',pubnub.$('message') ,function(e) {
+        (e.keyCode || e.charCode) === 13 && publish();
+    });
+
+			pubnub.bind('click', pubnub.$('sendButton'),publish);
+			 function publish(){
 				pubnub.publish({
 					channel : channel,
 					message : {
@@ -124,7 +144,7 @@
 					}//pubnub.get_uuid() + ' : '  + $('#message').val(),
 				});
 				$('#message').val('');
-			});
+			}
 		})();
 	</script>
 
